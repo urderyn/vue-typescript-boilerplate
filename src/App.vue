@@ -3,9 +3,13 @@ import TheHeader from "@/components/TheHeader.vue";
 import EntryEditor from "./components/EntryEditor.vue";
 import EntryCard from "@/components/EntryCard.vue";
 import type Entry from "@/types/Entry";
+import {reactive} from "vue";
 
+// data
+const entries = reactive([]);
+// methods
 const handleCreateEntry = ( entry:  Entry) => {
-  console.log(entry)
+  entries.unshift(entry);
 }
 </script>
 
@@ -14,8 +18,8 @@ const handleCreateEntry = ( entry:  Entry) => {
     <TheHeader />
     <EntryEditor @@create="handleCreateEntry"/>
     <ul>
-      <li>
-        <EntryCard />
+      <li v-for="entry in entries" :key="entry.id">
+        <EntryCard :entry="entry" />
       </li>
     </ul>
   </main>
